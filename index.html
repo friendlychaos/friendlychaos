@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>friendlychaos</title>
+<meta name="description" content="friendlychaos is the indie-folk project of Sean Bishop, based out of Minneapolis, Minnesota.">
+<meta property="og:title" content="friendlychaos">
+<meta property="og:description" content="Indie-folk from Minneapolis, Minnesota. Shows, songs and the email list.">
+<!-- link preview image: replace YOUR-SITE-ADDRESS with the site's real address once it's live, e.g. https://friendlychaos.com/photo.jpg -->
+<meta property="og:image" content="https://YOUR-SITE-ADDRESS/photo.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"><link rel="apple-touch-icon" href="favicon-180.png">
+<style>
+/* Layout: a mostly empty white page with raw, default-looking HTML links scattered at odd offsets. Each item sets its own --x (indent) and --y (gap above). Single deliberate light look. */
+:root{
+  --paper:#FFFFFF; --ink:#000000; --link:#0000EE; --visited:#551A8B; --active:#EE0000; --faint:#6B6B6B;
+  --serif:"Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:"Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color-scheme:light;
+}
+body{background:var(--paper);color:var(--ink);font:17px/1.35 var(--serif);padding-inline:16px}
+.page{max-width:1240px;margin:0 auto;padding-block:24px}
+html,body{overflow:hidden}
+[hidden]{display:none!important}
+/* every page is exactly one screen tall; on inner pages items keep their sideways scatter and the free space is shared out between them vertically */
+#shows,#about,#thoughts{display:flex;flex-direction:column;justify-content:space-between;height:calc(100vh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+#shows > .it,#about > .it,#thoughts > .it{margin-top:0}
+#about > p.it:not(.small),#thoughts > .it p:not(.small){font-size:clamp(13px,2.1vh,17px)}
+/* about photo: sized by screen height so the page still fits without scrolling */
+/* about: heading in its scattered spot, photo pinned to the top right of the same row so text stays clear of it */
+/* about: first paragraph and photo share a row, text on the left, photo at the right edge, centered on each other */
+.it.about-top{display:flex;justify-content:space-between;align-items:center;gap:clamp(12px,3vw,40px);width:100%;max-width:100%}
+.about-top .bio{min-width:0;max-width:46ch;margin-left:calc(12% * var(--k,1) + var(--shift,0%));font-size:clamp(13px,2.1vh,17px)}
+.about-photo{flex:none;width:min(45vw,24vh * 1.5,360px);height:auto;display:block}
+:root{--big-gap:clamp(12px,7vh,64px)}
+/* phones: tighter text and gap so the whole about page fits on one screen */
+@media (max-width:560px){
+  :root{--big-gap:8px}
+  .about-photo{width:38vw}
+  #about > p.it:not(.small),.about-top .bio{font-size:min(14px,3.6vw);line-height:1.3}
+}
+.showlist{display:grid;gap:2px;font-size:min(clamp(13px,2.1vh,16px),3.3vw)}
+.showlist p{white-space:nowrap}
+/* tab-style columns: date, venue, city line up like tab stops */
+.showlist .d,.showlist .v{display:inline-block;vertical-align:top}
+.showlist .d{font-variant-numeric:tabular-nums;width:5.5em}
+.showlist .v{width:13.5em}
+/* past shows: one continuous strike line across date, venue and city, including the gaps */
+.showlist s{text-decoration:none}
+.showlist p:has(> s){position:relative;width:fit-content}
+.showlist p:has(> s)::after{content:"";position:absolute;left:0;right:0;top:.68em;border-top:1px solid currentColor}
+a{color:var(--link)} a:visited{color:var(--visited)} a:active{color:var(--active)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:1px dotted var(--ink);outline-offset:2px}
+p{margin:0}
+.it{--ox:calc(var(--x,0%) * var(--k,1) + var(--shift,0%));display:block;width:fit-content;max-width:calc(100% - var(--ox));margin-left:var(--ox);margin-top:var(--y,3rem);overflow-wrap:anywhere}
+h1{font-size:17px;font-weight:bold;margin:0}
+/* wide screens: nudge the whole scatter right so pages aren't left-heavy; the corner name stays put */
+@media (min-width:900px){:root{--shift:9%}}
+.it.corner{--shift:0%}
+/* home email signup: centered on the page under the photo */
+#home > .it.signup-center{left:50%;transform:translateX(-50%);text-align:center;max-width:100%}
+.signup-center form{justify-content:center}
+.small{font-size:13px;color:var(--faint)}
+.mono{font-family:var(--mono);font-size:15px}
+input{font:15px var(--mono);border:1px solid var(--ink);padding:2px 4px;background:var(--paper);color:var(--ink);max-width:100%}
+button{font:15px var(--serif);background:#EFEFEF;color:var(--ink);border:1px solid var(--faint);padding:1px 8px;cursor:pointer}
+form{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.example{font:11px var(--mono);color:var(--faint)}
+ul.links{list-style:none;padding-left:0;margin-bottom:0}
+
+/* home fits in one screen: items are placed by percentage of the viewport instead of stacked */
+body:has(#home:not([hidden])) .page{padding-block:24px}
+#home{position:relative;height:calc(100vh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));min-height:420px}
+#home > .it{position:absolute;margin:0;left:var(--ox);top:var(--t)}
+#home > :nth-child(1){--t:0}
+#home > :nth-child(2){--t:40%}
+#home > :nth-child(3){--t:46%}
+#home > :nth-child(4){--t:53%}
+#home > :nth-child(5){--t:70%}
+#home > :nth-child(6){--t:82%}
+#home > :nth-child(7){--t:auto;top:auto;bottom:0}
+/* photo: centered under the band name, sized so it ends above the first link at 40% */
+#home > .photo{position:absolute;left:50%;transform:translateX(-50%);top:2.6rem;width:min(28vh,60vw);max-width:100%;height:auto;display:block}
+@media (max-width:560px){:root{--k:.55}}
+</style>
+
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+<div class="page">
+
+  <section id="home" data-section>
+    <h1 class="it corner" style="--x:0%;--y:0">friendlychaos</h1>
+    <a class="it" style="--x:62%;--y:5rem" href="#shows" data-page="shows">shows</a>
+    <a class="it" style="--x:18%;--y:6rem" href="#about" data-page="about">about</a>
+
+    <div class="it signup-center" style="--x:40%;--y:7rem">
+      <p>get the emails:</p>
+      <form id="signup-form" novalidate style="margin-top:4px">
+        <label for="email" hidden>Email address</label>
+        <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <button type="submit">ok</button>
+      </form>
+      <p class="small" id="signup-note" aria-live="polite" style="margin-top:4px"></p>
+    </div>
+
+    <ul class="it links" style="--x:8%;--y:6rem">
+      <li><a href="https://friendlychaos.bandcamp.com" target="_blank" rel="noopener">bandcamp</a></li>
+      <li><a href="https://www.instagram.com/friendlychaos/" target="_blank" rel="noopener">instagram</a></li>
+      <li><a href="https://open.spotify.com/artist/4ZgyZolQEMG670Mmj4lVfp" target="_blank" rel="noopener">spotify</a></li>
+    </ul>
+    <a class="it" style="--x:52%;--y:7rem" href="#thoughts" data-page="thoughts">thoughts</a>
+    <p class="it small" style="--x:44%;--y:9rem">© 2026 friendlychaos</p>
+    <img class="photo" src="photo.jpg" alt="friendlychaos: a shirtless figure in black jeans repeated four times in a row against a tan background">  </section>
+
+  <section id="shows" data-section hidden>
+    <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
+    <h1 class="it" style="--x:30%;--y:4rem">shows</h1>
+    <div class="it showlist" style="--x:40%">
+      <p><b>future</b></p>
+      <p class="small">nothing booked yet. lets cook something up</p>
+    </div>
+    <div class="it showlist" style="--x:10%">
+      <p><b>past</b></p>
+      <p><s><span class="d">08.10.26</span><span class="v">underground music venue</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">04.05.26</span><span class="v">zhora darling</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">01.04.26</span><span class="v">coffee break entertainment</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">20.04.25</span><span class="v">house show</span><span>missoula</span></s></p>
+      <p><s><span class="d">26.01.25</span><span class="v">house show</span><span>missoula</span></s></p>
+      <p><s><span class="d">26.11.23</span><span class="v">switchback records</span><span>missoula</span></s></p>
+      <p><s><span class="d">29.06.23</span><span class="v">songwriters circle</span><span>missoula</span></s></p>
+      <p><s><span class="d">11.02.23</span><span class="v">suite two</span><span>missoula</span></s></p>
+    </div>
+    <p class="it small" style="--x:60%;--y:8rem">booking: <span style="user-select:all">seanbishop780@gmail.com</span></p>
+    <a class="it" style="--x:6%;--y:6rem" href="#about" data-page="about">about</a>
+    <a class="it" style="--x:70%;--y:3rem" href="#thoughts" data-page="thoughts">thoughts</a>
+    <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
+  </section>
+
+  <section id="about" data-section hidden>
+    <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
+    <h1 class="it" style="--x:55%">about</h1>
+    <div class="it about-top corner">
+      <p class="bio">Originally rippin’ from Edmonton, Alberta, Sean Bishop started friendlychaos as an indie-folk solo project after living life on the road in his teeny-tiny SUV, “Ips,” lovingly named after the genus of bark beetles.</p>
+      <img class="about-photo" src="about-photo.jpg" alt="Sean playing a nylon-string guitar on a couch, with a white electric guitar hanging on the wall behind him">
+    </div>
+
+    <p class="it" style="--x:44%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Singing groovy tunes somewhere between Mac DeMarco, Angus &amp; Julia Stone, and some other folky, jazzy artist of your choosing, Sean is quick with a witty joke and even quicker to get you yelping and hollering.</p>
+    <p class="it" style="--x:20%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)));margin-top:var(--big-gap)">Despite his boyish charm and propensity for silliness, Sean writes and sings from the heart with raw emotion, touching on themes of love lost and earned, unfiltered longing, and nature often infused throughout.</p>
+    <p class="it" style="--x:56%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Currently, friendlychaos is based out of Minneapolis, Minnesota.</p>
+    <p class="it" style="--x:10%;font-size:17px;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:4%">thoughts</a></p>
+    <ul class="it links" style="--x:46%;--y:4rem">
+      <li><a href="https://friendlychaos.bandcamp.com" target="_blank" rel="noopener">bandcamp</a></li>
+      <li><a href="https://www.instagram.com/friendlychaos/" target="_blank" rel="noopener">instagram</a></li>
+      <li><a href="https://open.spotify.com/artist/4ZgyZolQEMG670Mmj4lVfp" target="_blank" rel="noopener">spotify</a></li>
+    </ul>
+    <p class="it small" style="--x:62%">booking: <span style="user-select:all">seanbishop780@gmail.com</span></p>
+    <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
+  </section>
+
+  <section id="thoughts" data-section hidden>
+    <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
+    <h1 class="it" style="--x:38%;--y:4rem">thoughts</h1>
+    <div class="it" style="--x:30%;max-width:min(48ch, calc(100% - var(--ox)))">
+      <p class="small">12.10.26</p>
+      <p style="margin-top:4px">it's my birthday</p>
+    </div>
+    <a class="it" style="--x:20%;--y:8rem" href="#shows" data-page="shows">shows</a>
+    <a class="it" style="--x:64%;--y:3rem" href="#about" data-page="about">about</a>
+    <p class="it small" style="--x:10%">booking: <span style="user-select:all">seanbishop780@gmail.com</span></p>
+    <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const pages=["home","shows","about","thoughts"];
+  function show(p){
+    if(!pages.includes(p)) p="home";
+    document.querySelectorAll("[data-section]").forEach(s=>s.hidden=s.id!==p);
+  }
+  document.addEventListener("click",e=>{
+    const a=e.target.closest("a[data-page]"); if(!a) return;
+    e.preventDefault(); show(a.dataset.page);
+    try{history.replaceState(null,"","#"+a.dataset.page)}catch(_){}
+    window.scrollTo({top:0});
+  });
+  show((location.hash||"#home").slice(1));
+
+  const form=document.getElementById("signup-form"), note=document.getElementById("signup-note"), input=document.getElementById("email");
+  form.addEventListener("submit",e=>{
+    e.preventDefault();
+    if(!input.checkValidity()||!input.value){note.textContent="enter an email address like you@example.com";return;}
+    // send the address to the band's Google Form; its "collect email" field is named emailAddress
+    const data=new FormData(); data.append("emailAddress",input.value.trim());
+    note.textContent="sending...";
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdg5b7NbXPsxhCfQLo_62sOeVvQU8aWaV1mLLb0407k12IRKw/formResponse",{method:"POST",mode:"no-cors",body:data})
+      .then(()=>{note.textContent="thanks, you're on the list";input.value="";})
+      .catch(()=>{note.textContent="couldn't sign you up right now, try again later";});
+  });
+})();
+</script>
+
+</body>
+</html>
