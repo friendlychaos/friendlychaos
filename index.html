@@ -47,12 +47,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   #about > p.it:not(.small){margin-top:min(14px,2vh)}
   #about > p.it.small{margin-top:min(14px,2vh);white-space:nowrap}
 }
-.showlist{display:grid;gap:2px;font-size:min(clamp(13px,2.1vh,16px),3.3vw)}
+.showlist{display:grid;gap:2px;font-size:min(clamp(13px,2.1vh,16px),3.15vw)}
 .showlist p{white-space:nowrap}
+.showlist p.small{font-size:min(13px,3.3vw)}
 /* tab-style columns: date, venue, city line up like tab stops */
 .showlist .d,.showlist .v{display:inline-block;vertical-align:top}
-.showlist .d{font-variant-numeric:tabular-nums;width:5.5em}
-.showlist .v{width:13.5em}
+.showlist .d{font-variant-numeric:tabular-nums;width:6.6em}
+.showlist .v{width:14em}
 /* past shows: one continuous strike line across date, venue and city, including the gaps */
 .showlist s{text-decoration:none}
 .showlist p:has(> s){position:relative;width:fit-content}
@@ -124,14 +125,14 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     </div>
     <div class="it showlist" style="--x:10%">
       <p><b>past</b></p>
-      <p><s><span class="d">08.10.26</span><span class="v">underground music venue</span><span>minneapolis</span></s></p>
-      <p><s><span class="d">04.05.26</span><span class="v">zhora darling</span><span>minneapolis</span></s></p>
-      <p><s><span class="d">01.04.26</span><span class="v">coffee break entertainment</span><span>minneapolis</span></s></p>
-      <p><s><span class="d">20.04.25</span><span class="v">house show</span><span>missoula</span></s></p>
-      <p><s><span class="d">26.01.25</span><span class="v">house show</span><span>missoula</span></s></p>
-      <p><s><span class="d">26.11.23</span><span class="v">switchback records</span><span>missoula</span></s></p>
-      <p><s><span class="d">29.06.23</span><span class="v">songwriters circle</span><span>missoula</span></s></p>
-      <p><s><span class="d">11.02.23</span><span class="v">suite two</span><span>missoula</span></s></p>
+      <p><s><span class="d">2026.10.08</span><span class="v">underground music venue</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">2026.05.04</span><span class="v">zhora darling</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">2026.04.01</span><span class="v">coffee break entertainment</span><span>minneapolis</span></s></p>
+      <p><s><span class="d">2025.04.20</span><span class="v">house show</span><span>missoula</span></s></p>
+      <p><s><span class="d">2025.01.26</span><span class="v">house show</span><span>missoula</span></s></p>
+      <p><s><span class="d">2023.11.26</span><span class="v">switchback records</span><span>missoula</span></s></p>
+      <p><s><span class="d">2023.06.29</span><span class="v">songwriters circle</span><span>missoula</span></s></p>
+      <p><s><span class="d">2023.02.11</span><span class="v">suite two</span><span>missoula</span></s></p>
     </div>
     <p class="it small" style="--x:60%;--y:8rem">booking: <span style="user-select:all">seanbishop780@gmail.com</span></p>
     <a class="it" style="--x:6%;--y:6rem" href="#about" data-page="about">about</a>
@@ -164,7 +165,7 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
     <h1 class="it" style="--x:38%;--y:4rem">thoughts</h1>
     <div class="it" style="--x:30%;max-width:min(48ch, calc(100% - var(--ox)))">
-      <p class="small">12.10.26</p>
+      <p class="small">2026.10.12</p>
       <p style="margin-top:4px">it's my birthday</p>
     </div>
     <a class="it" style="--x:20%;--y:8rem" href="#shows" data-page="shows">shows</a>
