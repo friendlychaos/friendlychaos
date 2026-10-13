@@ -27,11 +27,15 @@
 body{background:var(--paper);color:var(--ink);font:17px/1.35 var(--serif);padding-inline:16px}
 .page{max-width:1240px;margin:0 auto;padding-block:24px}
 html,body{overflow:hidden}
+html.can-scroll,html.can-scroll body{overflow:visible;overflow-y:auto}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 [hidden]{display:none!important}
 /* every page is exactly one screen tall; on inner pages items keep their sideways scatter and the free space is shared out between them vertically */
-#shows,#about,#thoughts{display:flex;flex-direction:column;justify-content:space-between;height:calc(100vh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
-#shows > .it,#about > .it,#thoughts > .it{margin-top:0}
+#shows,#about{display:flex;flex-direction:column;justify-content:space-between;height:calc(100vh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+#shows > .it,#about > .it{margin-top:0}
+/* thoughts and nature may scroll: items keep their scattered spacing and the page grows as posts are added */
+#thoughts > .it,#nature > .it{margin-top:clamp(28px,6vh,72px)}
+#thoughts > .it.corner,#nature > .it.corner{margin-top:0}
 #about > p.it:not(.small),#thoughts > .it p:not(.small){font-size:clamp(13px,2.1vh,17px)}
 /* about photo: sized by screen height so the page still fits without scrolling */
 /* about: heading in its scattered spot, photo pinned to the top right of the same row so text stays clear of it */
@@ -77,6 +81,15 @@ button{font:15px var(--serif);background:#EFEFEF;color:var(--ink);border:1px sol
 form{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .example{font:11px var(--mono);color:var(--faint)}
 ul.links{list-style:none;padding-left:0;margin-bottom:0}
+/* nature: a scrolling feed, newest first, entries stepping left and right */
+#nature-entries{display:grid;gap:clamp(36px,8vh,96px)}
+.entry{display:grid;gap:6px;width:fit-content;max-width:min(480px,100%)}
+.entry:nth-child(4n+1){margin-left:calc(14% * var(--k,1) + var(--shift,0%))}
+.entry:nth-child(4n+2){margin-left:calc(36% * var(--k,1) + var(--shift,0%))}
+.entry:nth-child(4n+3){margin-left:calc(4% * var(--k,1) + var(--shift,0%))}
+.entry:nth-child(4n){margin-left:calc(30% * var(--k,1) + var(--shift,0%))}
+.entry img{display:block;max-width:100%;max-height:70vh;width:auto;height:auto}
+.entry p:not(.small){max-width:46ch}
 
 /* home fits in one screen: a column that spreads its items top to bottom, so nothing can overlap the photo */
 body:has(#home:not([hidden])) .page{padding-block:24px}
@@ -113,9 +126,9 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
       <li><a href="https://www.instagram.com/friendlychaos/" target="_blank" rel="noopener">instagram</a></li>
       <li><a href="https://open.spotify.com/artist/4ZgyZolQEMG670Mmj4lVfp" target="_blank" rel="noopener">spotify</a></li>
     </ul>
-    <a class="it" style="--x:52%;--y:7rem" href="#thoughts" data-page="thoughts">thoughts</a>
+    <p class="it" style="--x:30%;display:flex;width:calc(100% - var(--ox))"><a href="#thoughts" data-page="thoughts">thoughts</a><a href="#nature" data-page="nature" style="margin-left:auto;margin-right:12%">nature</a></p>
     <p class="it small" style="--x:44%;--y:9rem">© 2026 friendlychaos</p>
-    <img class="photo" src="photo.jpg" alt="friendlychaos: a shirtless figure in black jeans repeated four times in a row against a tan background">  </section>
+    <img class="photo" src="photo.jpg" alt="friendlychaos: a shirtless figure in black jeans repeated three times in a row against a tan background">  </section>
 
   <section id="shows" data-section hidden>
     <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
@@ -138,6 +151,7 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     <p class="it small" style="--x:46%;--y:8rem">booking: <span class="em" style="user-select:all" data-a="cisumsoahcyldneirf" data-b="moc.liamg">friendlychaosmusic [at] gmail [dot] com</span></p>
     <a class="it" style="--x:6%;--y:6rem" href="#about" data-page="about">about</a>
     <a class="it" style="--x:70%;--y:3rem" href="#thoughts" data-page="thoughts">thoughts</a>
+    <a class="it" style="--x:28%" href="#nature" data-page="nature">nature</a>
     <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
   </section>
 
@@ -152,7 +166,7 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     <p class="it" style="--x:44%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Singing groovy tunes somewhere between Mac DeMarco, Angus &amp; Julia Stone, and some other folky, jazzy artist of your choosing, Sean is quick with a witty joke and even quicker to get you yelping and hollering.</p>
     <p class="it" style="--x:20%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)));margin-top:var(--big-gap)">Despite his boyish charm and propensity for silliness, Sean writes and sings from the heart with raw emotion, touching on themes of love lost and earned, unfiltered longing, and nature often infused throughout.</p>
     <p class="it" style="--x:56%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Currently, friendlychaos is based out of Minneapolis, Minnesota.</p>
-    <p class="it" style="--x:10%;font-size:17px;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:4%">thoughts</a></p>
+    <p class="it" style="--x:10%;font-size:17px;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#nature" data-page="nature" style="margin-left:auto">nature</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:4%">thoughts</a></p>
     <ul class="it links" style="--x:46%;--y:4rem">
       <li><a href="https://friendlychaos.bandcamp.com" target="_blank" rel="noopener">bandcamp</a></li>
       <li><a href="https://www.instagram.com/friendlychaos/" target="_blank" rel="noopener">instagram</a></li>
@@ -165,13 +179,42 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
   <section id="thoughts" data-section hidden>
     <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
     <h1 class="it" style="--x:38%;--y:4rem">thoughts</h1>
-    <div class="it" style="--x:30%;max-width:min(48ch, calc(100% - var(--ox)))">
+    <div class="it" style="--x:46%;max-width:min(40ch, calc(100% - var(--ox)))">
+      <p class="small">2026.10.13</p>
+      <p style="margin-top:4px">I write songs that make me feel something. Maybe you’ll feel something too.</p>
+    </div>
+    <div class="it" style="--x:16%;max-width:min(48ch, calc(100% - var(--ox)))">
       <p class="small">2026.10.12</p>
       <p style="margin-top:4px">it's my birthday</p>
     </div>
     <a class="it" style="--x:20%;--y:8rem" href="#shows" data-page="shows">shows</a>
     <a class="it" style="--x:64%;--y:3rem" href="#about" data-page="about">about</a>
+    <a class="it" style="--x:38%" href="#nature" data-page="nature">nature</a>
     <p class="it small" style="--x:10%">booking: <span class="em" style="user-select:all" data-a="cisumsoahcyldneirf" data-b="moc.liamg">friendlychaosmusic [at] gmail [dot] com</span></p>
+    <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
+  </section>
+
+  <section id="nature" data-section hidden>
+    <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
+    <h1 class="it" style="--x:62%">nature</h1>
+
+    <!--
+      NATURE ENTRIES: newest at the top. The page scrolls, so add as many as you like.
+      To add one: upload the photo to GitHub (e.g. nature-2026-10-13.jpg), then copy this block
+      just below the <div id="nature-entries"> line and fill it in:
+
+      <article class="entry">
+        <img src="nature-2026-10-13.jpg" alt="what the photo shows">
+        <p class="small">2026.10.13 · where you were</p>
+        <p>the fact or note.</p>
+      </article>
+    -->
+    <div id="nature-entries" class="it" style="width:100%;max-width:100%">
+    </div>
+    <p class="it small nature-empty" style="--x:22%">nothing here yet. out looking.</p>
+
+    <p class="it" style="--x:8%;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#about" data-page="about" style="margin-left:auto">about</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:10%">thoughts</a></p>
+    <p class="it small" style="--x:40%">booking: <span class="em" style="user-select:all" data-a="cisumsoahcyldneirf" data-b="moc.liamg">friendlychaosmusic [at] gmail [dot] com</span></p>
     <p class="it small" style="--x:44%">© 2026 friendlychaos</p>
   </section>
 
@@ -184,10 +227,11 @@ document.querySelectorAll(".em").forEach(function(el){
   el.textContent=r(el.dataset.a)+"@"+r(el.dataset.b);
 });
 (function(){
-  const pages=["home","shows","about","thoughts"];
+  const pages=["home","shows","about","thoughts","nature"];
   function show(p){
     if(!pages.includes(p)) p="home";
     document.querySelectorAll("[data-section]").forEach(s=>s.hidden=s.id!==p);
+    document.documentElement.classList.toggle("can-scroll",p==="thoughts"||p==="nature");
   }
   document.addEventListener("click",e=>{
     const a=e.target.closest("a[data-page]"); if(!a) return;
@@ -196,6 +240,9 @@ document.querySelectorAll(".em").forEach(function(el){
     window.scrollTo({top:0});
   });
   show((location.hash||"#home").slice(1));
+
+  // nature: hide the "nothing here yet" line once there's an entry
+  if(document.querySelector("#nature-entries .entry")) document.querySelector(".nature-empty").hidden=true;
 
   const form=document.getElementById("signup-form"), note=document.getElementById("signup-note"), input=document.getElementById("email");
   form.addEventListener("submit",e=>{
