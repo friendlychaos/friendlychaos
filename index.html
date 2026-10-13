@@ -48,7 +48,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (max-width:560px){
   :root{--big-gap:min(16px,2.4vh)}
   .about-photo{width:34vw}
-  #about > p.it:not(.small),.about-top .bio{font-size:min(13.5px,3.5vw);line-height:1.3}
+  #about > p.it:not(.small),.about-top .bio{font-size:min(13px,3.4vw);line-height:1.25}
+  /* the music links sit on one line here to leave room for the longer bio */
+  #about ul.links{display:flex;gap:1.4em;margin-left:16%;width:auto;max-width:none}
+  #about ul.links li{white-space:nowrap}
   #about > p.it:not(.small){margin-top:min(14px,2vh)}
   #about > p.it.small{margin-top:min(14px,2vh)}
 }
@@ -99,6 +102,13 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
 /* photo: centered under the band name, sized from the visible screen height */
 #home > .photo{order:-1;align-self:center;width:min(28vh,60vw);width:min(28dvh,60vw);max-width:100%;height:auto;display:block}
 @media (max-width:560px){:root{--k:.55}}
+@media (max-width:360px){#about ul.links{margin-left:4%;gap:.9em}}
+/* very short phone screens: slightly smaller bio so the about page still fits */
+@media (max-width:560px) and (max-height:600px){
+  #about > p.it:not(.small),.about-top .bio{font-size:11.5px;line-height:1.18}
+  #about > p.it:not(.small),#about > p.it.small{margin-top:6px}
+  :root{--big-gap:6px}
+}
 </style>
 
 <style>body{margin:0}img{max-width:100%}</style>
@@ -159,13 +169,13 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     <a class="it corner" style="--x:0%;--y:0" href="#home" data-page="home">friendlychaos</a>
     <h1 class="it" style="--x:55%">about</h1>
     <div class="it about-top corner">
-      <p class="bio">Originally rippin’ from Edmonton, Alberta, Sean Bishop started friendlychaos as an indie-folk solo project after living life on the road in his teeny-tiny SUV, “Ips,” lovingly named after the genus of bark beetles.</p>
+      <p class="bio">Originally rippin’ from Edmonton, Alberta, Sean Bishop started friendlychaos as an indie solo project after living life on the road in his teeny-tiny SUV, “Ips,” lovingly named after the genus of bark beetles.</p>
       <img class="about-photo" src="about-photo.jpg" alt="Sean playing a nylon-string guitar on a couch, with a white electric guitar hanging on the wall behind him">
     </div>
 
-    <p class="it" style="--x:44%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Singing groovy tunes somewhere between Mac DeMarco, Angus &amp; Julia Stone, and some other folky, jazzy artist of your choosing, Sean is quick with a witty joke and even quicker to get you yelping and hollering.</p>
-    <p class="it" style="--x:20%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)));margin-top:var(--big-gap)">Despite his boyish charm and propensity for silliness, Sean writes and sings from the heart with raw emotion, touching on themes of love lost and earned, unfiltered longing, and nature often infused throughout.</p>
-    <p class="it" style="--x:56%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Currently, friendlychaos is based out of Minneapolis, Minnesota.</p>
+    <p class="it" style="--x:44%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Singing groovy tunes somewhere between Mac DeMarco, Tom Misch, and Cage the Elephant with little jazzy jazz sprinkles on top. Expect witty banter, some yelping and hollering, and an intensity of songwriting that keeps you on your toes.</p>
+    <p class="it" style="--x:20%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)));margin-top:var(--big-gap)">Behind the silliness, friendlychaos writes straight from the gut about love lost and earned, unfiltered longing, and the natural world that inspires him.</p>
+    <p class="it" style="--x:56%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Weathered by the wild Yukon, carried across Idaho’s sagebrush steppe and down the river-fed mountains of Missoula, friendlychaos now calls Minneapolis, Minnesota home.</p>
     <p class="it" style="--x:10%;font-size:17px;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#nature" data-page="nature" style="margin-left:auto">nature</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:4%">thoughts</a></p>
     <ul class="it links" style="--x:46%;--y:4rem">
       <li><a href="https://friendlychaos.bandcamp.com" target="_blank" rel="noopener">bandcamp</a></li>
