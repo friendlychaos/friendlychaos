@@ -33,6 +33,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* every page is exactly one screen tall; on inner pages items keep their sideways scatter and the free space is shared out between them vertically */
 #shows,#about{display:flex;flex-direction:column;justify-content:space-between;height:calc(100vh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
 #shows > .it,#about > .it{margin-top:0}
+#about > ul.links{margin-top:clamp(14px,3vh,32px)}
 /* thoughts and nature may scroll: items keep their scattered spacing and the page grows as posts are added */
 #thoughts > .it,#nature > .it{margin-top:clamp(28px,6vh,72px)}
 #thoughts > .it.corner,#nature > .it.corner{margin-top:0}
@@ -50,9 +51,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .about-photo{width:34vw}
   #about > p.it:not(.small),.about-top .bio{font-size:min(13px,3.4vw);line-height:1.25}
   /* the music links sit on one line here to leave room for the longer bio */
-  #about ul.links{display:flex;gap:1.4em;margin-left:16%;width:auto;max-width:none}
+  #about ul.links{display:flex;gap:1.4em;margin-left:16%;width:auto;max-width:none;margin-top:min(16px,2.4vh)!important}
   #about ul.links li{white-space:nowrap}
-  #about > p.it:not(.small){margin-top:min(14px,2vh)}
+  #about > p.it:not(.small){margin-top:min(11px,1.6vh)}
   #about > p.it.small{margin-top:min(14px,2vh)}
 }
 .showlist{display:grid;gap:2px;font-size:min(clamp(13px,2.1vh,16px),3.15vw)}
@@ -179,7 +180,7 @@ body:has(#home:not([hidden])) .page{padding-block:24px}
     <p class="it" style="--x:20%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)));margin-top:var(--big-gap)">Behind the silliness, friendlychaos writes straight from the gut about love lost and earned, unfiltered longing, and the natural world that inspires him.</p>
     <p class="it" style="--x:56%;--y:5rem;max-width:min(46ch, calc(100% - var(--ox)))">Weathered by the wild Yukon, carried across Idaho’s sagebrush steppe and down the river-fed mountains of Missoula, friendlychaos now calls Minneapolis, Minnesota home.</p>
     <p class="it" style="--x:10%;font-size:17px;display:flex;width:calc(100% - var(--ox))"><a href="#shows" data-page="shows">shows</a><a href="#nature" data-page="nature" style="margin-left:auto">nature</a><a href="#thoughts" data-page="thoughts" style="margin-left:auto;margin-right:4%">thoughts</a></p>
-    <ul class="it links" style="--x:46%;--y:4rem">
+    <ul class="it links" style="--x:60%;--y:4rem">
       <li><a href="https://friendlychaos.bandcamp.com" target="_blank" rel="noopener">bandcamp</a></li>
       <li><a href="https://www.instagram.com/friendlychaos/" target="_blank" rel="noopener">instagram</a></li>
       <li><a href="https://open.spotify.com/artist/4ZgyZolQEMG670Mmj4lVfp" target="_blank" rel="noopener">spotify</a></li>
